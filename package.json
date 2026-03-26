@@ -5,7 +5,7 @@
   "types": "modules",
   "name": "asincroniajohn",
   "version": "1.2.0",
-  "description": "Se implementa un sistema de validación de formularios asincrónico mediante Promise.allSettled para gestionar múltiples verificaciones en paralelo con captura de errores individuales",
+  "description": "Se implementa un flujo de ventas asincrónico con control de dependencias críticas y ejecución de procesos opcionales en paralelo para optimizar el tiempo de respuesta",
   "main": "ejer4EncadenamientoCallbacks.js",
   "directories": {
     "doc": "docs"
