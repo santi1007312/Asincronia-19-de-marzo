@@ -3,9 +3,9 @@
     "prompt-sync": "^4.2.0"
   },
   "name": "asincroniajohn",
-  "version": "1.1.0",
-  "description": "Implementación de ejecución diferida y asincronía básica mediante Callbacks y setTimeout",
-  "main": "ejer3AsincrCallbacks.js",
+  "version": "1.2.0",
+  "description": "Implementación de flujos de trabajo consecutivos utilizando múltiples niveles de Callbacks y ejecución diferida",
+  "main": "ejer4EncadenamientoCallbacks.js",
   "directories": {
     "doc": "docs"
   },
