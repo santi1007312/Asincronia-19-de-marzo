@@ -2,14 +2,14 @@
   "dependencies": {
     "prompt-sync": "^4.2.0"
   },
+  "types": "modules",
   "name": "asincroniajohn",
   "version": "1.2.0",
-  "description": "Implementación de flujos de trabajo consecutivos utilizando múltiples niveles de Callbacks y ejecución diferida",
+  "description": "Se implementa un flujo de ventas asincrónico con control de dependencias críticas y ejecución de procesos opcionales en paralelo para optimizar el tiempo de respuesta",
   "main": "ejer4EncadenamientoCallbacks.js",
   "directories": {
     "doc": "docs"
   },
-  "type": "modules",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
