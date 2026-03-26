@@ -1,217 +1,68 @@
-# PROYECTO BASE: [ASINCRONIA] - Software Factory SENA
+PROYECTO: [ASINCRONÍA - MANEJO DE CALLBACKS] - Software Factory SENA
+Metodología: "Del Requerimiento al Producto"
 
-**Metodología:** *"Del Requerimiento al Producto"*
+Este repositorio contiene el Ejercicio #3: Callbacks, diseñado para demostrar cómo gestionar procesos asíncronos mediante funciones de retorno (callbacks), evitando el bloqueo del hilo principal y permitiendo la ejecución diferida.
 
-Este repositorio constituye la base técnica y administrativa para el desarrollo del proyecto. No es solo un contenedor de código, es una simulación de un entorno profesional donde se aplican estándares de calidad, gestión ágil y flujos de trabajo colaborativos reales.
+INTRODUCCIÓN Y PROPÓSITO
+El objetivo de este módulo es dominar la Programación Dirigida por Eventos. A diferencia del ejercicio anterior (bloqueante), aquí utilizamos setTimeout para simular una tarea que toma tiempo (3 segundos) sin detener el resto de la aplicación.
 
----
+El "Por qué" (Justificación)
+En la industria, los callbacks son la base para entender cómo JavaScript maneja peticiones a bases de datos o APIs. Este ejercicio simula un flujo real de "Pedido -> Preparación -> Entrega".
 
-## INTRODUCCIÓN Y PROPÓSITO
+ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
+Función: procesarPedido(callback)
+Implementa una simulación de proceso en segundo plano.
 
-El objetivo de este proyecto es desarrollar una solución tecnológica funcional, priorizando:
+Mecánica: Utiliza el Web API setTimeout.
 
-- Arquitectura limpia  
-- Código escalable  
-- Trazabilidad total  
+Tiempo de espera: 3000ms (3 segundos).
 
-### El "Por qué" (Justificación)
+Callback: Una función que se dispara únicamente cuando el temporizador llega a cero, asegurando el orden lógico de los mensajes.
 
-Dominar el ciclo de vida del software es tan importante como programar. Esta metodología alinea las habilidades técnicas con las exigencias de la industria, garantizando que cada línea de código tenga un propósito claro y demostrable.
+JavaScript
+// Ejemplo de lógica asíncrona
+procesarPedido(() => {
+    console.log("Evento finalizado tras 3 segundos");
+});
 
----
+CONFIGURACIÓN DEL ENTORNO (LOCAL)
+Para ejecutar este ejercicio y observar la asincronía en tu terminal:
 
-## CENTRO DE DOCUMENTACIÓN (WIKI DEL PROYECTO)
+Bash
+# 1. Cambiar a la rama de la tarea
+git checkout feat/manejoAsincroniaCallbacks
 
-Antes de escribir la primera línea de código o ejecutar un comando, es obligatorio revisar las guías de trabajo.
+# 2. Ejecutar el script con Node.js
+node src/ejer3AsincrCallbacks.js
 
-### Nivel 1. Sistema  
-**Ubicación:** `docs/01-guia-sistema/`  
-- Manuales técnicos: creación de Issues y Milestones  
+ARQUITECTURA DEL EJERCICIO
+Estructura modular del repositorio:
 
-### Nivel 2. Metodología  
-**Ubicación:** `docs/02-guia-metodologia/`  
-- Reglas para reportar tareas y solicitar revisiones (PR)  
-
-### Nivel 3. Formatos  
-**Ubicación:** `docs/03-formatos-maestros/`  
-- Plantillas oficiales de documentos  
-
----
-
-## ROLES DE LA CÉLULA ÁGIL
-
-### Líder (Arquitecto)
-
-- **Responsabilidad:** Integridad del repositorio y control de calidad  
-- **Tareas en GitHub:**
-  - Protección de ramas  
-  - Gestión de Milestones  
-  - Aprobación de Pull Requests  
-
----
-
-### Desarrollador (Albañil)
-
-- **Responsabilidad:** Construcción de módulos y lógica  
-- **Tareas en GitHub:**
-  - Desarrollo en ramas `feat/`  
-  - Reporte de avances  
-  - Solicitud de revisión técnica  
-
----
-
-### El "Por qué"
-
-La división de roles evita duplicidad de tareas y establece una jerarquía clara de responsabilidad (segregación de funciones), esencial en equipos de alto rendimiento.
-
----
-
-## CONFIGURACIÓN DEL ENTORNO (LOCAL)
-
-Para estandarizar el desarrollo y evitar errores de compatibilidad, sigue estos pasos en tu terminal:
-
-```bash
-# Paso 1. Clonar el repositorio
-git clone [URL-del-repositorio-grupal]
-
-# Paso 2. Instalar dependencias
-npm install
-
-# Paso 3. Ejecutar el servidor local
-npm run dev
-```
-
-### El "por que"
-
-Estandarizar el entorno asegura la paridad entre las máquinas de todos los colaboradores, erradicando para siempre la excusa de "en mi máquina sí funciona".
-
-## ARQUITECTURA Y ESTRUCTURA DEL PROYECTO
-
-Mantenemos una organización modular para facilitar el mantenimiento:
-
-```
 /
-├── .github/              # Motor de plantillas (Issues y Pull Requests)
-├── docs/                 # Guías metodológicas y reportes técnicos
-├── public/               # Recursos estáticos (imágenes, iconos)
-├── src/                  # Código fuente principal
-│   ├── assets/           # Estilos globales y multimedia
-│   ├── components/       # Piezas de interfaz reutilizables (UI)
-│   ├── services/         # Lógica de consumo de datos o APIs
-│   ├── views/            # Secciones o páginas principales
-│   └── main.js           # Punto de entrada de la aplicación
-├── .gitignore            # Archivos que Git debe ignorar
-├── package.json          # Dependencias y scripts del proyecto
-├── README.md             # Manual principal del repositorio
-└── TEAM_AGREEMENT.md     # Acuerdo y normas de convivencia del equipo
-```
+├── docs/                 # Reportes de entrega y guías
 
-## METODOLOGÍA DE TRABAJO (GITFLOW PROFESIONAL)
+├── src/                  # Código fuente
 
-El flujo de trabajo es el corazón de nuestra colaboración.  
-Está estrictamente prohibido hacer commits directos sobre las ramas `main` o `develop`.
+│   └── ejer3AsincrCallbacks.js  # Script de manejo de Callbacks
 
----
+├── .gitignore            # Archivos ignorados
 
-### Paso 1. Sincronizar
-Trae los últimos cambios aprobados del equipo:
+├── package.json          # Configuración (Scripts de ejecución)
 
-```bash
-git checkout develop
-git pull origin develop
-```
-### Paso 2. Rama de Tarea
+└── README.md             # Manual del ejercicio (este archivo)
 
-Crea un espacio aislado para tu requerimiento:
+ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
+Asincronía Real: El programa no se detiene; el mensaje final solo aparece al cumplirse el tiempo.
 
-```bash
-git checkout -b feat/nombre-tarea
-```
+Limpieza: Uso de Arrow Functions para una sintaxis moderna y legible.
 
-### Paso 3. Desarrollo
+Documentación: Comentarios internos explicando la meta de comprensión diferida.
 
-Escribe código limpio y realiza commits descriptivos.
+DIRECCIÓN DEL PROYECTO
+Desarrollador: Eileen Mendoza
 
-### Paso 4. Sincronización Final
+Instructor: John Becerra
 
-Antes de entregar, integra los cambios recientes del equipo para resolver conflictos en tu máquina:
+Programa: Análisis y Desarrollo de Software - SENA
 
-```bash
-git checkout develop
-git pull origin develop
-git checkout feat/nombre-tarea
-git merge develop
-```
-
-### Paso 5. Solicitud de PR
-
-Sube tu rama y solicita la revisión técnica en GitHub:
-
-```bash
-git push origin feat/nombre-tarea
-```
-
-### El "Por qué"
-
-Este flujo protege la estabilidad del código base. Si tu código falla, solo falla en tu rama, manteniendo el proyecto principal intacto y siempre funcional.
-
-## BLINDAJE DE RAMAS Y SEGURIDAD
-
-Para garantizar la integridad del producto, el repositorio cuenta con candados de seguridad:
-
-- **Rama `main`:**
-  - Representa el estado de producción  
-  - Solo recibe código desde `develop` cuando un Milestone (Hito) está al 100%  
-
-- **Restricción de Merge:**
-  - El botón de integración está bloqueado para los desarrolladores  
-  - Solo el Líder tiene el permiso final tras la revisión  
-
----
-
-## ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-
-Antes de que el Líder apruebe un Pull Request, el desarrollador debe garantizar:
-
-- **Limpieza:**  
-  Cero `console.log`, variables sin uso o código comentado (*"por si acaso"*)  
-
-- **Responsive:**  
-  El diseño se adapta sin romperse a pantallas móviles  
-
-- **Sincronización:**  
-  La rama está actualizada y sin conflictos de merge  
-
-- **Automatización:**  
-  La descripción del PR incluye `Closes #ID` para cerrar la tarea  
-
-### El "Por qué"
-
-Un control de calidad preventivo reduce la deuda técnica (errores acumulados) y automatiza el proceso administrativo.
-
----
-
-## CRITERIOS DE ENTREGA Y EVALUACIÓN
-
-La fase del proyecto se considera exitosa, terminada y lista para calificación únicamente cuando:
-
-- El **Milestone** en GitHub marca el **100%** de progreso  
-- Todas las **Issues** del hito están cerradas y vinculadas a un PR aprobado  
-- El proyecto está desplegado en vivo (ej. Vercel, GitHub Pages) y funciona sin errores  
-
-### El "Por qué"
-
-En la industria, el software que no está publicado no existe. Esto vincula el resultado técnico con la gestión profesional.
-
----
-
-## DIRECCIÓN DEL PROYECTO
-
-- **Instructor:** [Tu Nombre Aquí]  
-- **Institución:** Servicio Nacional de Aprendizaje (SENA)  
-- **Centro:** [Nombre de tu Centro de Formación]  
-- **Programa:** Análisis y Desarrollo de Software  
-
----
-
-Este repositorio es propiedad del equipo de desarrollo y se rige por las políticas de formación profesional integral del SENA.
+Ficha: 3065369
