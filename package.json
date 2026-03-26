@@ -5,7 +5,7 @@
   "types": "modules",
   "name": "asincroniajohn",
   "version": "1.2.0",
-  "description": "Se simula un centro de procesamiento de órdenes asincrónico para comparar el rendimiento entre callbacks, promesas y async/await (serie vs paralelo)",
+  "description": "Se implementa un sistema de validación de formularios asincrónico mediante Promise.allSettled para gestionar múltiples verificaciones en paralelo con captura de errores individuales",
   "main": "ejer4EncadenamientoCallbacks.js",
   "directories": {
     "doc": "docs"
