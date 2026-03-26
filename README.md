@@ -1,63 +1,59 @@
-PROYECTO: [ASINCRONÍA - ENCADENAMIENTO DE CALLBACKS] - Software Factory SENA
+PROYECTO: [ASINCRONÍA - CENTRO DE PROCESAMIENTO DE ÓRDENES] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #4: Callback Hell, una práctica avanzada diseñada para demostrar la complejidad de los flujos de trabajo donde una tarea asíncrona depende estrictamente del resultado de la anterior.
+Este repositorio contiene el Ejercicio #2 del Ejercicio 8, una práctica avanzada diseñada para simular un sistema de gestión de pedidos asíncrono, analizando la evolución desde Callbacks hasta el uso eficiente de Async/Await.
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es comprender el Flujo de Ejecución Secuencial. A través de tres procesos simulados (Carga -> Procesamiento -> Salida), se observa cómo la anidación de funciones permite mantener el orden lógico, a costa de aumentar la complejidad visual del código.
+El objetivo de este módulo es comprender el flujo de trabajo de un sistema que procesa órdenes de forma no bloqueante. Se simula un entorno real donde cada pedido debe completar cuatro fases obligatorias: Verificación, Procesamiento, Registro y Notificación.
 
 El "Por qué" (Justificación)
-En el desarrollo de software, es común que no podamos procesar datos si primero no los hemos "tomado" de una base de datos. Este ejercicio ilustra la solución clásica antes de la llegada de las Promesas.
+En el desarrollo de software moderno, procesar múltiples órdenes de forma sincrónica bloquearía el servidor. Este ejercicio demuestra cómo la asincronía permite manejar procesos lentos (como latencia de red o base de datos) sin detener la ejecución global.
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-El sistema se divide en tres etapas consecutivas, cada una con un retraso de 1000ms (1 segundo):
+El sistema se rige por los siguientes tiempos de respuesta simulados:
 
-tomarDatos(callback): Inicia la cadena. Simula la latencia de red.
+Verificación: 1500ms
 
-procesarDatos(callback): Recibe el control del primer proceso. Simula lógica de negocio.
+Procesamiento: 2000ms
 
-mostrarResultado(callback): Cierra la cadena. Simula la renderización de la información.
+Registro: 1000ms
 
-Estructura de la "Pirámide"
-El código se organiza de la siguiente manera para garantizar el orden:
+Notificación: 500ms
 
-JavaScript
-tomarDatos(() => {
-    procesarDatos(() => {
-        mostrarResultado(() => {
-            // Fin del ciclo
-        });
-    });
-});
+Estructura de Ejecución
+Se analizan tres enfoques técnicos:
+
+Callbacks: Implementación inicial para observar la dependencia jerárquica y el "Callback Hell".
+
+Promesas: Refactorización para lograr un código lineal y plano mediante .then().
+
+Async/Await: Implementación final comparando el procesamiento en Serie (una por una) vs Paralelo (todas simultáneas).
 
 CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y observar la cascada de mensajes en tu terminal:
+Para ejecutar este ejercicio y validar los tiempos en tu terminal:
 
 Bash
 # 1. Cambiar a la rama de la tarea
-git checkout feat/encademanientoCallback
+git checkout feat/ordenesAsincronas
 
-# 2. Ejecutar el script directamente con Node.js
-node src/ejer4EncadenamientoCallbakcs.js
-
-ARQUITECTURA DEL EJERCICIO
-Estructura de archivos en esta entrega:
+# 2. Ejecutar el script principal
+node src/2parteEjer8OrdAsincronas.js
 
 /
 ├── src/                    # Código fuente
 
-│   └── ejer4ChainCallbacks.js  # Lógica de anidación profunda
+│   └── 2parteEjer8OrdAsincronas.js  # Lógica de procesamiento masivo
 
 ├── package.json            # Metadatos del proyecto
 
 └── README.md               # Manual del módulo (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Orden Lógico: Los mensajes en consola aparecen en secuencia estricta (1, 2, 3).
+Independencia de Procesos: Se demuestra que las órdenes de diferentes clientes pueden correr en paralelo.
 
-Dependencia: Ninguna función inicia antes de que la anterior invoque su callback.
+Secuencia Interna: Se garantiza que ninguna notificación se envía antes de completar el registro.
 
-Documentación: Comentarios JSDoc que explican la jerarquía de cada proceso.
+Documentación: Se aplican comentarios JSDoc.
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
