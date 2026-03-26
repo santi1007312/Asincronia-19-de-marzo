@@ -1,62 +1,63 @@
-PROYECTO: [ASINCRONÍA - MANEJO DE CALLBACKS] - Software Factory SENA
+PROYECTO: [ASINCRONÍA - ENCADENAMIENTO DE CALLBACKS] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #3: Callbacks, diseñado para demostrar cómo gestionar procesos asíncronos mediante funciones de retorno (callbacks), evitando el bloqueo del hilo principal y permitiendo la ejecución diferida.
+Este repositorio contiene el Ejercicio #4: Callback Hell, una práctica avanzada diseñada para demostrar la complejidad de los flujos de trabajo donde una tarea asíncrona depende estrictamente del resultado de la anterior.
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es dominar la Programación Dirigida por Eventos. A diferencia del ejercicio anterior (bloqueante), aquí utilizamos setTimeout para simular una tarea que toma tiempo (3 segundos) sin detener el resto de la aplicación.
+El objetivo de este módulo es comprender el Flujo de Ejecución Secuencial. A través de tres procesos simulados (Carga -> Procesamiento -> Salida), se observa cómo la anidación de funciones permite mantener el orden lógico, a costa de aumentar la complejidad visual del código.
 
 El "Por qué" (Justificación)
-En la industria, los callbacks son la base para entender cómo JavaScript maneja peticiones a bases de datos o APIs. Este ejercicio simula un flujo real de "Pedido -> Preparación -> Entrega".
+En el desarrollo de software, es común que no podamos procesar datos si primero no los hemos "tomado" de una base de datos. Este ejercicio ilustra la solución clásica antes de la llegada de las Promesas.
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-Función: procesarPedido(callback)
-Implementa una simulación de proceso en segundo plano.
+El sistema se divide en tres etapas consecutivas, cada una con un retraso de 1000ms (1 segundo):
 
-Mecánica: Utiliza el Web API setTimeout.
+tomarDatos(callback): Inicia la cadena. Simula la latencia de red.
 
-Tiempo de espera: 3000ms (3 segundos).
+procesarDatos(callback): Recibe el control del primer proceso. Simula lógica de negocio.
 
-Callback: Una función que se dispara únicamente cuando el temporizador llega a cero, asegurando el orden lógico de los mensajes.
+mostrarResultado(callback): Cierra la cadena. Simula la renderización de la información.
+
+Estructura de la "Pirámide"
+El código se organiza de la siguiente manera para garantizar el orden:
 
 JavaScript
-// Ejemplo de lógica asíncrona
-procesarPedido(() => {
-    console.log("Evento finalizado tras 3 segundos");
+tomarDatos(() => {
+    procesarDatos(() => {
+        mostrarResultado(() => {
+            // Fin del ciclo
+        });
+    });
 });
 
 CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y observar la asincronía en tu terminal:
+Para ejecutar este ejercicio y observar la cascada de mensajes en tu terminal:
 
 Bash
 # 1. Cambiar a la rama de la tarea
-git checkout feat/manejoAsincroniaCallbacks
+git checkout feat/encademanientoCallback
 
-# 2. Ejecutar el script con Node.js
-node src/ejer3AsincrCallbacks.js
+# 2. Ejecutar el script directamente con Node.js
+node src/ejer4EncadenamientoCallbakcs.js
 
 ARQUITECTURA DEL EJERCICIO
-Estructura modular del repositorio:
+Estructura de archivos en esta entrega:
 
 /
-├── docs/                 # Reportes de entrega y guías
+├── src/                    # Código fuente
 
-├── src/                  # Código fuente
+│   └── ejer4ChainCallbacks.js  # Lógica de anidación profunda
 
-│   └── ejer3AsincrCallbacks.js  # Script de manejo de Callbacks
+├── package.json            # Metadatos del proyecto
 
-├── .gitignore            # Archivos ignorados
-
-├── package.json          # Configuración (Scripts de ejecución)
-
-└── README.md             # Manual del ejercicio (este archivo)
+└── README.md               # Manual del módulo (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Asincronía Real: El programa no se detiene; el mensaje final solo aparece al cumplirse el tiempo.
+Orden Lógico: Los mensajes en consola aparecen en secuencia estricta (1, 2, 3).
 
-Limpieza: Uso de Arrow Functions para una sintaxis moderna y legible.
+Dependencia: Ninguna función inicia antes de que la anterior invoque su callback.
 
-Documentación: Comentarios internos explicando la meta de comprensión diferida.
+Documentación: Comentarios JSDoc que explican la jerarquía de cada proceso.
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
