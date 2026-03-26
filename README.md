@@ -1,62 +1,59 @@
-PROYECTO: [ASINCRONÍA - MANEJO DE CALLBACKS] - Software Factory SENA
+PROYECTO: [ASINCRONÍA - CENTRO DE PROCESAMIENTO DE ÓRDENES] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #3: Callbacks, diseñado para demostrar cómo gestionar procesos asíncronos mediante funciones de retorno (callbacks), evitando el bloqueo del hilo principal y permitiendo la ejecución diferida.
+Este repositorio contiene el Ejercicio #2 del Ejercicio 8, una práctica avanzada diseñada para simular un sistema de gestión de pedidos asíncrono, analizando la evolución desde Callbacks hasta el uso eficiente de Async/Await.
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es dominar la Programación Dirigida por Eventos. A diferencia del ejercicio anterior (bloqueante), aquí utilizamos setTimeout para simular una tarea que toma tiempo (3 segundos) sin detener el resto de la aplicación.
+El objetivo de este módulo es comprender el flujo de trabajo de un sistema que procesa órdenes de forma no bloqueante. Se simula un entorno real donde cada pedido debe completar cuatro fases obligatorias: Verificación, Procesamiento, Registro y Notificación.
 
 El "Por qué" (Justificación)
-En la industria, los callbacks son la base para entender cómo JavaScript maneja peticiones a bases de datos o APIs. Este ejercicio simula un flujo real de "Pedido -> Preparación -> Entrega".
+En el desarrollo de software moderno, procesar múltiples órdenes de forma sincrónica bloquearía el servidor. Este ejercicio demuestra cómo la asincronía permite manejar procesos lentos (como latencia de red o base de datos) sin detener la ejecución global.
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-Función: procesarPedido(callback)
-Implementa una simulación de proceso en segundo plano.
+El sistema se rige por los siguientes tiempos de respuesta simulados:
 
-Mecánica: Utiliza el Web API setTimeout.
+Verificación: 1500ms
 
-Tiempo de espera: 3000ms (3 segundos).
+Procesamiento: 2000ms
 
-Callback: Una función que se dispara únicamente cuando el temporizador llega a cero, asegurando el orden lógico de los mensajes.
+Registro: 1000ms
 
-JavaScript
-// Ejemplo de lógica asíncrona
-procesarPedido(() => {
-    console.log("Evento finalizado tras 3 segundos");
-});
+Notificación: 500ms
+
+Estructura de Ejecución
+Se analizan tres enfoques técnicos:
+
+Callbacks: Implementación inicial para observar la dependencia jerárquica y el "Callback Hell".
+
+Promesas: Refactorización para lograr un código lineal y plano mediante .then().
+
+Async/Await: Implementación final comparando el procesamiento en Serie (una por una) vs Paralelo (todas simultáneas).
 
 CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y observar la asincronía en tu terminal:
+Para ejecutar este ejercicio y validar los tiempos en tu terminal:
 
 Bash
 # 1. Cambiar a la rama de la tarea
-git checkout feat/manejoAsincroniaCallbacks
+git checkout feat/ordenesAsincronas
 
-# 2. Ejecutar el script con Node.js
-node src/ejer3AsincrCallbacks.js
-
-ARQUITECTURA DEL EJERCICIO
-Estructura modular del repositorio:
+# 2. Ejecutar el script principal
+node src/2parteEjer8OrdAsincronas.js
 
 /
-├── docs/                 # Reportes de entrega y guías
+├── src/                    # Código fuente
 
-├── src/                  # Código fuente
+│   └── 2parteEjer8OrdAsincronas.js  # Lógica de procesamiento masivo
 
-│   └── ejer3AsincrCallbacks.js  # Script de manejo de Callbacks
+├── package.json            # Metadatos del proyecto
 
-├── .gitignore            # Archivos ignorados
-
-├── package.json          # Configuración (Scripts de ejecución)
-
-└── README.md             # Manual del ejercicio (este archivo)
+└── README.md               # Manual del módulo (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Asincronía Real: El programa no se detiene; el mensaje final solo aparece al cumplirse el tiempo.
+Independencia de Procesos: Se demuestra que las órdenes de diferentes clientes pueden correr en paralelo.
 
-Limpieza: Uso de Arrow Functions para una sintaxis moderna y legible.
+Secuencia Interna: Se garantiza que ninguna notificación se envía antes de completar el registro.
 
-Documentación: Comentarios internos explicando la meta de comprensión diferida.
+Documentación: Se aplican comentarios JSDoc.
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
