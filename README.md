@@ -1,57 +1,62 @@
-PROYECTO: [ASINCRONÍA - DEMO DE BLOQUEO] - Software Factory SENA
+PROYECTO: [ASINCRONÍA - MANEJO DE CALLBACKS] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #2: Código Bloqueante, diseñado para demostrar empíricamente cómo las operaciones síncronas pesadas afectan el rendimiento de las aplicaciones en JavaScript al ocupar el hilo principal.
+Este repositorio contiene el Ejercicio #3: Callbacks, diseñado para demostrar cómo gestionar procesos asíncronos mediante funciones de retorno (callbacks), evitando el bloqueo del hilo principal y permitiendo la ejecución diferida.
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es comprender el comportamiento del Event Loop y el Call Stack. A través de una función de conteo intensivo, visualizamos el fenómeno donde la ejecución secuencial impide que el sistema procese otras tareas.
+El objetivo de este módulo es dominar la Programación Dirigida por Eventos. A diferencia del ejercicio anterior (bloqueante), aquí utilizamos setTimeout para simular una tarea que toma tiempo (3 segundos) sin detener el resto de la aplicación.
 
 El "Por qué" (Justificación)
-En el desarrollo web moderno, un hilo bloqueado significa una interfaz congelada. Dominar estos conceptos es el primer paso para implementar soluciones asíncronas (Promises, Async/Await) que garanticen una experiencia de usuario fluida.
+En la industria, los callbacks son la base para entender cómo JavaScript maneja peticiones a bases de datos o APIs. Este ejercicio simula un flujo real de "Pedido -> Preparación -> Entrega".
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-Función: contarBloqueante(limite)
-Es el núcleo del ejercicio. Realiza una iteración lineal que satura el proceso de salida por consola (I/O).
+Función: procesarPedido(callback)
+Implementa una simulación de proceso en segundo plano.
 
-Entrada: Un número entero que define el techo de la iteración.
+Mecánica: Utiliza el Web API setTimeout.
 
-Instrumentación: Uso de console.time() para medir la latencia generada.
+Tiempo de espera: 3000ms (3 segundos).
 
-Efecto: Bloqueo absoluto del hilo principal hasta que el ciclo finaliza.
+Callback: Una función que se dispara únicamente cuando el temporizador llega a cero, asegurando el orden lógico de los mensajes.
 
 JavaScript
-// Ejemplo de ejecución
-contarBloqueante(10000); 
-console.log("Este mensaje esperará a que el ciclo termine");
+// Ejemplo de lógica asíncrona
+procesarPedido(() => {
+    console.log("Evento finalizado tras 3 segundos");
+});
+
 CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y observar los tiempos de respuesta en tu terminal:
+Para ejecutar este ejercicio y observar la asincronía en tu terminal:
 
 Bash
-# 1. Clonar tu rama de trabajo
-git clone -b feat/codigoBloqueante https://github.com/santi1007312/Asincronia-19-de-marzo.git
+# 1. Cambiar a la rama de la tarea
+git checkout feat/manejoAsincroniaCallbacks
 
-# 2. Entrar al directorio
-cd ASINCRONIAJOHN
+# 2. Ejecutar el script con Node.js
+node src/ejer3AsincrCallbacks.js
 
-# 3. Ejecutar el script con Node.js
-node ejer2CodgBloq.js
 ARQUITECTURA DEL EJERCICIO
-El proyecto sigue la estructura modular definida por el centro de formación:
+Estructura modular del repositorio:
 
 /
-├── docs/                 # Documentación técnica y flujos
+├── docs/                 # Reportes de entrega y guías
+
 ├── src/                  # Código fuente
-│   └── ejer2CodgBloq.js  # Script principal de la demostración
-├── .gitignore            # Exclusión de node_modules
-├── package.json          # Metadatos del proyecto
-└── README.md             # Manual de usuario (este archivo)
+
+│   └── ejer3AsincrCallbacks.js  # Script de manejo de Callbacks
+
+├── .gitignore            # Archivos ignorados
+
+├── package.json          # Configuración (Scripts de ejecución)
+
+└── README.md             # Manual del ejercicio (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Para este ejercicio, se han cumplido los siguientes criterios:
+Asincronía Real: El programa no se detiene; el mensaje final solo aparece al cumplirse el tiempo.
 
-Documentación JSDoc: La función está plenamente comentada indicando parámetros y tipos.
+Limpieza: Uso de Arrow Functions para una sintaxis moderna y legible.
 
-Trazabilidad: El tiempo de ejecución se muestra al finalizar para análisis de rendimiento.
+Documentación: Comentarios internos explicando la meta de comprensión diferida.
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
