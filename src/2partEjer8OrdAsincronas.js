@@ -11,6 +11,11 @@
  */
 const pedido = { id: 1, cliente: "Ana", monto: 120000 };
 
+/**
+ * Se inicia la validación de integridad de la orden de forma asincrónica.
+ * @param {Orden} orden - Se recibe el objeto de la orden a verificar.
+ * @returns {Promise<Orden>} Se retorna una promesa que resuelve con la orden verificada.
+ */
 function verificar(orden) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -20,6 +25,11 @@ function verificar(orden) {
     });
 }
 
+/**
+ * Se ejecuta el procesamiento lógico y financiero de la orden.
+ * @param {Orden} orden - Se recibe la orden previamente verificada.
+ * @returns {Promise<Orden>} Se retorna una promesa que resuelve con la orden procesada.
+ */
 function procesar(orden) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -28,6 +38,11 @@ function procesar(orden) {
         }, 2000);
     });
 }
+/**
+ * Se realiza el almacenamiento persistente de la orden en la base de datos simulada.
+ * @param {Orden} orden - Se recibe la orden lista para ser registrada.
+ * @returns {Promise<Orden>} Se retorna una promesa que resuelve tras completar el registro.
+ */
 function registrar(orden) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -36,6 +51,11 @@ function registrar(orden) {
         }, 1000);
     });
 }
+/**
+ * Se gestiona el envío de la confirmación final al cliente.
+ * @param {Orden} orden - Se recibe la orden registrada para obtener los datos de contacto.
+ * @returns {Promise<Orden>} Se retorna una promesa que resuelve al finalizar la notificación.
+ */
 function notificar(orden) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -44,7 +64,10 @@ function notificar(orden) {
         }, 500);
     });
 }
-// Ejecución del flujo: Estructura plana y legible
+/**
+ * Se ejecuta el flujo de trabajo utilizando el encadenamiento de promesas (.then).
+ * Se garantiza un orden secuencial sin incurrir en anidamiento excesivo (Callback Hell).
+ */
 console.log("Iniciando proceso con Promesas...");
 
 verificar(pedido)
@@ -55,5 +78,8 @@ verificar(pedido)
         console.log("\nProceso finalizado");
     })
     .catch((error) => {
+        /**
+         * Se captura cualquier error ocurrido en cualquiera de las etapas del flujo.
+         */
         console.error("Se detectó un error en el flujo:", error);
     });
