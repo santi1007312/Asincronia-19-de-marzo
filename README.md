@@ -1,62 +1,53 @@
-PROYECTO: [ASINCRONÍA - MANEJO DE CALLBACKS] - Software Factory SENA
+PROYECTO: [PROCESAMIENTO DE PEDIDOS - FLUJO MIXTO] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #3: Callbacks, diseñado para demostrar cómo gestionar procesos asíncronos mediante funciones de retorno (callbacks), evitando el bloqueo del hilo principal y permitiendo la ejecución diferida.
+Este módulo contiene la implementación del Ejercicio #4 (Ejercicios transferencia), un sistema de ventas asincrónico que gestiona dependencias críticas y tareas opcionales concurrentes.
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es dominar la Programación Dirigida por Eventos. A diferencia del ejercicio anterior (bloqueante), aquí utilizamos setTimeout para simular una tarea que toma tiempo (3 segundos) sin detener el resto de la aplicación.
+El objetivo de este módulo es dominar el control de flujos híbridos. En un entorno de e-commerce, existen pasos que no pueden avanzar sin el anterior (Serie), mientras que otros pueden ejecutarse en segundo plano para no penalizar el tiempo de respuesta al cliente (Paralelo).
 
 El "Por qué" (Justificación)
-En la industria, los callbacks son la base para entender cómo JavaScript maneja peticiones a bases de datos o APIs. Este ejercicio simula un flujo real de "Pedido -> Preparación -> Entrega".
+Generar recomendaciones de productos es valioso, pero no debe retrasar la emisión de una factura legal. Este ejercicio demuestra cómo "disparar" una promesa sin bloquear el hilo principal, permitiendo que la lógica crítica avance de forma independiente.
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-Función: procesarPedido(callback)
-Implementa una simulación de proceso en segundo plano.
+El sistema se rige por la siguiente jerarquía de procesos:
+Orden,Proceso,Tipo,Tiempo (ms),Dependencia
+1,Validar Stock,Obligatorio,1000ms,Ninguna
+2,Generar Recomendaciones,Opcional,2000ms,Paralelo al flujo
+3,Calcular Costos,Obligatorio,1500ms,Paso 1
+4,Enviar Factura,Obligatorio,1000ms,Paso 1 y 3
 
-Mecánica: Utiliza el Web API setTimeout.
 
-Tiempo de espera: 3000ms (3 segundos).
+Estrategia de Implementación
+Flujo Crítico: Se usa await en los pasos 1, 3 y 4 para garantizar que la factura contenga los datos correctos.
 
-Callback: Una función que se dispara únicamente cuando el temporizador llega a cero, asegurando el orden lógico de los mensajes.
+Optimización (Non-blocking): El paso 2 se inicia sin await inmediatamente después de validar el stock, aprovechando los tiempos de espera de los demás servicios.
 
-JavaScript
-// Ejemplo de lógica asíncrona
-procesarPedido(() => {
-    console.log("Evento finalizado tras 3 segundos");
-});
 
-CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y observar la asincronía en tu terminal:
+Para ejecutar este flujo y observar la trazabilidad en tu terminal:
 
 Bash
 # 1. Cambiar a la rama de la tarea
-git checkout feat/manejoAsincroniaCallbacks
+git checkout feat/procesamientoPedidos
 
-# 2. Ejecutar el script con Node.js
-node src/ejer3AsincrCallbacks.js
-
-ARQUITECTURA DEL EJERCICIO
-Estructura modular del repositorio:
+# 2. Ejecutar el script principal
+node src/ejer4pedidosPasos.js
 
 /
-├── docs/                 # Reportes de entrega y guías
+├── src/                    # Código fuente
 
-├── src/                  # Código fuente
+│   └── ejer4pedidosPasos.js  # Lógica de flujo mixto (Serie/Paralelo)
 
-│   └── ejer3AsincrCallbacks.js  # Script de manejo de Callbacks
+├── package.json            # Metadatos del proyecto
 
-├── .gitignore            # Archivos ignorados
-
-├── package.json          # Configuración (Scripts de ejecución)
-
-└── README.md             # Manual del ejercicio (este archivo)
+└── README.md               # Manual del módulo (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Asincronía Real: El programa no se detiene; el mensaje final solo aparece al cumplirse el tiempo.
+Eficiencia Temporal: El tiempo total de entrega de la factura es de ~3.5s, a pesar de que la suma de todos los procesos es de 5.5s.
 
-Limpieza: Uso de Arrow Functions para una sintaxis moderna y legible.
+Integridad de Datos: La factura solo se emite si el stock y los cálculos son exitosos.
 
-Documentación: Comentarios internos explicando la meta de comprensión diferida.
+Documentación: Se aplican comentarios JSDoc profesionales.
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
