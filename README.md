@@ -1,59 +1,52 @@
-PROYECTO: [ASINCRONÍA - CENTRO DE PROCESAMIENTO DE ÓRDENES] - Software Factory SENA
+PROYECTO: [VALIDACIÓN DE FORMULARIO CON VERIFICACIONES EXTERNAS] - Software Factory SENA
 Metodología: "Del Requerimiento al Producto"
 
-Este repositorio contiene el Ejercicio #2 del Ejercicio 8, una práctica avanzada diseñada para simular un sistema de gestión de pedidos asíncrono, analizando la evolución desde Callbacks hasta el uso eficiente de Async/Await.
+Este módulo simula la validación técnica de un formulario que depende de tres servicios externos (Correo, Documento y Registro Global).
 
 INTRODUCCIÓN Y PROPÓSITO
-El objetivo de este módulo es comprender el flujo de trabajo de un sistema que procesa órdenes de forma no bloqueante. Se simula un entorno real donde cada pedido debe completar cuatro fases obligatorias: Verificación, Procesamiento, Registro y Notificación.
+El objetivo de este módulo es comprender la gestión de múltiples peticiones asíncronas concurrentes. Se simula un entorno real de registro donde un formulario depende de tres servicios externos: Validación de Correo, Consulta de Documento y Disponibilidad en Registro Global.
 
 El "Por qué" (Justificación)
-En el desarrollo de software moderno, procesar múltiples órdenes de forma sincrónica bloquearía el servidor. Este ejercicio demuestra cómo la asincronía permite manejar procesos lentos (como latencia de red o base de datos) sin detener la ejecución global.
+En aplicaciones de alto rendimiento, esperar a que cada validación termine antes de iniciar la siguiente (ejecución en serie) genera una experiencia de usuario deficiente. Este ejercicio demuestra cómo el uso de Promise.allSettled permite disparar todas las peticiones simultáneamente, reduciendo el tiempo de espera al máximo delay individual.
 
 ESPECIFICACIONES TÉCNICAS DEL EJERCICIO
-El sistema se rige por los siguientes tiempos de respuesta simulados:
+El sistema se rige por los siguientes tiempos de latencia y reglas de negocio:
+Servicio            Tiempo (ms)  Criterio de Aceptación
+Validar Correo      1200msDebe   contener el carácter "@".Validar Documento   800ms        Longitud mínima 8 caract
+Validar Registro    1600ms       El nombre no esta vacío.
 
-Verificación: 1500ms
+Estrategia de Implementación
+Concurrencia: Se utiliza Promise.allSettled para procesar todas las validaciones en paralelo.
 
-Procesamiento: 2000ms
+Resiliencia: El sistema captura tanto los éxitos (fulfilled) como los fallos (rejected) de cada servicio de forma individual.
 
-Registro: 1000ms
-
-Notificación: 500ms
-
-Estructura de Ejecución
-Se analizan tres enfoques técnicos:
-
-Callbacks: Implementación inicial para observar la dependencia jerárquica y el "Callback Hell".
-
-Promesas: Refactorización para lograr un código lineal y plano mediante .then().
-
-Async/Await: Implementación final comparando el procesamiento en Serie (una por una) vs Paralelo (todas simultáneas).
+Consolidación: Se genera un reporte final que determina si el formulario es apto para el envío basado en el cumplimiento del 100% de las reglas.
 
 CONFIGURACIÓN DEL ENTORNO (LOCAL)
-Para ejecutar este ejercicio y validar los tiempos en tu terminal:
+Para ejecutar este ejercicio y validar la lógica de concurrencia en tu terminal:
 
 Bash
 # 1. Cambiar a la rama de la tarea
-git checkout feat/ordenesAsincronas
+git checkout feat/validacionesParalelas
 
 # 2. Ejecutar el script principal
-node src/2parteEjer8OrdAsincronas.js
+node src/ejer3ValidacionFormulario.js
 
 /
 ├── src/                    # Código fuente
 
-│   └── 2parteEjer8OrdAsincronas.js  # Lógica de procesamiento masivo
+│   └── ejer3ValidacionFormulario.js  # Lógica de validación con Promise.allSettled
 
 ├── package.json            # Metadatos del proyecto
 
 └── README.md               # Manual del módulo (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
-Independencia de Procesos: Se demuestra que las órdenes de diferentes clientes pueden correr en paralelo.
+Optimización: El tiempo total del proceso no excede los 1600ms (tiempo del servicio más lento).
 
-Secuencia Interna: Se garantiza que ninguna notificación se envía antes de completar el registro.
+Manejo de Errores: Se identifican y muestran los motivos de fallo específicos sin interrumpir el flujo global.
 
-Documentación: Se aplican comentarios JSDoc.
+Documentación: Se aplican comentarios JSDoc con redacción técnica descriptiva 
 
 DIRECCIÓN DEL PROYECTO
 Desarrollador: Eileen Mendoza
