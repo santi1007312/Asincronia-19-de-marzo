@@ -3,9 +3,9 @@
     "prompt-sync": "^4.2.0"
   },
   "name": "asincroniajohn",
-  "version": "1.0.0",
-  "description": " Se ejecuta un ciclo síncrono pesado para demostrar el bloqueo del Event Loop",
-  "main": "ejer2CodgBloq.js",
+  "version": "1.1.0",
+  "description": "Implementación de ejecución diferida y asincronía básica mediante Callbacks y setTimeout",
+  "main": "ejer3AsincrCallbacks.js",
   "directories": {
     "doc": "docs"
   },
