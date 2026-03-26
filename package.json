@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "name": "asincroniajohn",
+  "version": "1.0.0",
+  "description": " Se ejecuta un ciclo síncrono pesado para demostrar el bloqueo del Event Loop",
+  "main": "ejer2CodgBloq.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "modules",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santi1007312/Asincronia-19-de-marzo.git"
+  },
+  "author": "eileenMendoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/santi1007312/Asincronia-19-de-marzo/issues"
+  },
+  "homepage": "https://github.com/santi1007312/Asincronia-19-de-marzo#readme"
+}
