@@ -40,10 +40,15 @@ El proyecto sigue la estructura modular definida por el centro de formación:
 
 /
 ├── docs/                 # Documentación técnica y flujos
+
 ├── src/                  # Código fuente
+
 │   └── ejer2CodgBloq.js  # Script principal de la demostración
+
 ├── .gitignore            # Exclusión de node_modules
+
 ├── package.json          # Metadatos del proyecto
+
 └── README.md             # Manual de usuario (este archivo)
 
 ESTÁNDARES DE CALIDAD (DEFINITION OF DONE)
